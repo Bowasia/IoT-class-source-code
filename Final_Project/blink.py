@@ -1,5 +1,9 @@
 import  RPi.GPIO as GPIO
 import  time
+import os
+
+status = "off"
+http_address = "https://cingalese-flames.000webhostapp.com/api/UserInput/update.php?"
 
 RED = 2
 GREEN = 3
@@ -33,6 +37,12 @@ def num2list(n):
     
 while True:
     if (GPIO.input(BUTTON)):
+        if (i % 2 == 0):
+            text = "off"
+        else:
+            text = "on"
+        request_string = http_address + "Camera=" + text
+        os.system('curl' + '"' + request_string + '"')
         if (i > 7):
             i = 0;
         arr = num2list(i)
