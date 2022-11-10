@@ -1,6 +1,6 @@
 import  RPi.GPIO as GPIO
 import  time
-import os
+import  requests
 
 status = "off"
 http_address = "https://cingalese-flames.000webhostapp.com/api/UserInput/update.php?"
@@ -41,8 +41,10 @@ while True:
             text = "off"
         else:
             text = "on"
-        request_string = http_address + "Camera=" + text
-        os.system('curl' + '"' + request_string + '"')
+        request_string = http_address + "id=4&" + "Camera=" + str(text)
+        response = requests.get(request_string)
+        print("Camera = " + text + "\n" + "response =")
+        print(response.text, "\n")
         if (i > 7):
             i = 0;
         arr = num2list(i)
