@@ -1,6 +1,20 @@
 import  RPi.GPIO as GPIO
 import  time
 import  requests
+import  mysql.connector
+
+#mydb = mysql.connector.connect(
+        #host="localhost",
+        #user="id17516185_admin",
+        #password="Raspberry@1234",
+        #database="id17516185_aquatek"
+        #)
+
+#mycursor = mydb.cursor()
+
+#mycursor.execute("SELECT * FROM UserInput")
+
+#myresult = mycursor.fetchall()
 
 status = "off"
 http_address = "https://cingalese-flames.000webhostapp.com/api/UserInput/update.php?"
@@ -34,7 +48,19 @@ def num2list(n):
     bi = format(n, '03b')
     l = [int(x) for x in bi]
     return l
-    
+
+#def all_from_db():
+    #mycursor = mydb.cursor()
+    #mycursor.execute("SELECT * FROM UserInput")
+    #myresult = mycursor.fetchall()
+    #return myresult
+
+
+
+#print("Original data")
+#for i in all_from_db():
+    #print(x)
+
 while True:
     if (GPIO.input(BUTTON)):
         if (i % 2 == 0):
@@ -45,6 +71,9 @@ while True:
         response = requests.get(request_string)
         print("Camera = " + text + "\n" + "response =")
         print(response.text, "\n")
+        #print("After update:")
+        #for i in all_from_db():
+            #print(i)
         if (i > 7):
             i = 0;
         arr = num2list(i)
